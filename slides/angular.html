@@ -546,6 +546,103 @@ myModule.controller("MyController",
                 </div>
             </section>
         </section>
+
+        <section data-markdown>
+            ## Day 3
+
+            * Understand JavaScript `this`
+            * Understand and use futures
+            * Understand and use angular `http` service
+        </section>
+
+        <section>
+            <section data-markdown>
+                ## JavaScript `this`
+
+                * `this` can be bound to anything
+                * By default `this` is `window`
+
+                Binding method #1
+
+                `new`
+
+                Binding method #2
+
+                `.call(object, arg1, arg2, ...)`
+
+                Binding method #2#
+
+                `.apply(object, [arg1, arg2, ...])`
+            </section>
+            <section>
+                <h2>Futures in Java</h2>
+
+                In Java <code>Future&lt;String&gt; future = executor.submit(...);</code>
+                <br>
+                <code class="fragment">future.get(); // Blocks</code>
+            </section>
+            <section>
+                <h2>Futures in Angular</h2>
+
+                <code class="fragment">var future = $http(...);</code>
+                <code class="fragment">future.then(successFunction, errorFunction)</code>
+                <code class="fragment"><span style="color: transparent">future</span>.then(successFunction2, errorFunction2);</code>
+
+                <p class="fragment">Can be chained!</p>
+
+                <p class="fragment">Used for <code>$timing</code>, <code>$http</code> and in general asynchronus
+                    services</p>
+            </section>
+            <section data-markdown>
+                ## `$http` service in Angular
+
+                Performs `HTTP` request, returns a future with a response.
+
+                Uses following methods:
+                * $http.get
+                * $http.head
+                * $http.post
+                * $http.put
+                * $http.delete
+                * $http.jsonp
+                * $http.patch
+            </section>
+            <section>
+                <h2>The <code>$http</code> request object</h2>
+
+<pre>{
+ method:  'POST',
+ url:     'http://example.com',
+ headers: {
+   'Content-Type': undefined
+ },
+ data:    {
+    test: 'test'
+ }
+}</pre>
+            </section>
+            <section>
+                <h2>The <code>$http</code> response object</h2>
+
+                <ul>
+                    <li><strong>data</strong> – <code><span class="pun">{</span><span class="kwd">string</span><span class="pun">|</span><span class="typ">Object</span><span class="pun">}</span></code> – The response body</li>
+                    <li><strong>status</strong> – <code><span class="pun">{</span><span class="pln">number</span><span class="pun">}</span></code> – HTTP status code of the response</li>
+                    <li><strong>headers</strong> – <code><span class="pun">{</span><span class="kwd">function</span><span class="pun">([</span><span class="pln">headerName</span><span class="pun">])}</span></code> – Header getter function</li>
+                    <li><strong>config</strong> – <code><span class="pun">{</span><span class="typ">Object</span><span class="pun">}</span></code> – The configuration object</li>
+                    <li><strong>statusText</strong> – <code><span class="pun">{</span><span class="kwd">string</span><span class="pun">}</span></code> – HTTP response status</li>
+                </ul>
+            </section>
+            <section data-markdown>
+                ## Angular with remote backend
+
+                ### Local demo: `enron.html`
+            </section>
+            <section data-markdown>
+                ## Angular live examples
+
+                ### [madewithangular.com](https://www.madewithangular.com/#/)
+            </section>
+        </section>
     </div>
 </div>
 <div class="header three columns u-pull-right">
