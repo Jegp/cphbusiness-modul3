@@ -52,7 +52,7 @@
                 <div class="fragment" data-markdown>
                     ----
                     * Generally a nice guy
-                        * Don't be afraid to ask questions
+                    * Don't be afraid to ask questions
                 </div>
             </section>
             <section>
@@ -83,7 +83,7 @@
                 <h1>JavaScript</h1>
             </section>
             <section>
-                <eval>[]</eval>
+                <eval>var lasse = "hi"</eval>
             </section>
             <section data-markdown>
                 ## JavaScript: the bad parts
@@ -202,11 +202,11 @@
                 ## Meet the Model-View-Controller
 
                 * Model
-                    * Contains data
+                * Contains data
                 * View
-                    * Presents data
+                * Presents data
                 * Control
-                    * Controls the application flow
+                * Controls the application flow
             </section>
             <section>
                 <h2>MVC</h2>
@@ -284,9 +284,11 @@
 
                 * Angular expressions
                 * Angular modules
+                * Angular controllers
+                * Angular directives
             </section>
             <section>
-                <h2>Angular expressions 1/2</h2>
+                <h2>Angular expressions</h2>
 
                 <p>In HTML or as an attribute</p>
 
@@ -315,8 +317,37 @@
                 <h4><code>HTML</code></h4>
                 <code>&lt;div ng-app=&quot;myModule&quot;&gt;&lt;/div&gt;</code>
             </section>
+            <section data-markdown>
+                ## Angular controllers
+
+                A controller controls the logic of a part of the application
+                (typically a page).
+
+                `myAngularModule.controller('MyController", `
+                `function() {});`
+
+                To add a scope:
+
+                `myAngularModule.controller('MyController", `
+                ` function($scope) {`
+                ` $scope.name = "Donald Trump"`
+                `});`
+            </section>
+            <section ng-non-bindable data-markdown>
+                ## Angular directives
+
+                Code that binds data to the view.
+
+                Example: `ng-repeat`
+
+                `$scope.names = ['Hillary', 'Donald'];`
+
+                `&lt;ul ng-repeat=&quot;name in names&quot;&gt;`
+                ` &lt;li&gt;{{name}}&lt;/li&gt;`
+                `&lt;/ul&gt;`
+            </section>
             <section>
-                <h2>Bootstrapping</h2>
+                <h2>Creating an Angular page</h2>
 <pre ng-non-bindable>&lt;!doctype html&gt;
 &lt;html ng-app="optionalModuleName"&gt;
 &lt;body&gt;
@@ -324,34 +355,195 @@ I can add: {{ 1+2 }}.
 &lt;script src="angular.js"&gt;&lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</pre>
+                {{ "Hello" | json }}
             </section>
+            <section data-markdown>
+                ## Pro tip: Use a CDN
+                ### Content delivery network
+
+                ![CDN](cdn.png)
+            </section>
+        </section>
+
+        <section data-markdown>
+            ## Day 2
+
+            * Understand the benefits of Angular
+            * Understand and use controllers
+            * Understand single-page applications
+            * Understand and use routing
         </section>
 
         <section>
             <section data-markdown>
-                ## Single page applications
+                ## What can Angular give me?
 
-                * Why have multiple html pages?
+                * Avoid registering callbacks
+                * Separate DOM manipulation from application logic
+                * AJAX and (un)marshalling out of the box
+            </section>
+            <section data-markdown>
+                ## Angular modules
+
+                ![Angular modules](angularModule.png)
+            </section>
+
+            <section data-markdown>
+                ## Angular controllers
+
+                * Can assign things to `$scope`
+                * Can add behaviour to the `$scope`
+                * Written in JavaScript
+            </section>
+
+            <section data-markdown>
+                ## Angular directives
+
+                * Can add behaviour to HTML
+                * Written inline in HTML
+                * Compiled by angular
+            </section>
+            <section data-markdown>
+                ## Combining controllers and directives 1/2
+
+                ![Angular data binding](concepts-databinding1.png)
+            </section>
+            <section data-markdown>
+                ## Combining controllers and directives 2/2
+
+                ![Angular data binding](concepts-databinding2.png)
+            </section>
+            <section data-markdown>
+                [JS Bin example](http://jsbin.com/roxifizica/edit?html,js,output)
+            </section>
+            <section data-markdown>
+                ## What if you want to share state (`$scope`) across controllers?
             </section>
             <section>
-                
+                <h2>Services</h2>
+<pre>myModule.factory("MyService",
+    function() {
+        return {};
+    });</pre>
+            </section>
+            <section data-markdown>
+                ## Currency converter
+                [JS Bin example](http://jsbin.com/roxifizica/edit?html,js,output)
+            </section>
+            <section data-markdown>
+                ## Combining controllers and services
+
+                ![Services](concepts-module-service.png)
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>Old webservers</h2>
+
+                <ul>
+                    <li class="fragment">One request one file</li>
+                    <li class="fragment">Typically <code>.html</code></li>
+                    <li class="fragment">One server, many <code>.html</code> files</li>
+                </ul>
             </section>
             <section>
-                <h2>Pros and cons</h2>
-                <div class="six columns" data-markdown>
+                <h2>New webservers</h2>
+
+                <ul>
+                    <li class="fragment"> One request one piece of data</li>
+                    <li class="fragment"> Typically `JSON`</li>
+                    <li class="fragment"> One server,
+                        <span class="fragment">one .html</span> <span class="fragment">but many templates</span>
+                    </li>
+                </ul>
+                <img src="one_ring.png" align="One ring" class="fragment">
+            </section>
+            <section data-markdown>
+                ## Single-page applications
+
+                * One page
+                * Multiple views
+            </section>
+            <section data-markdown>
+                ## Angular dependencies
+
+                Angular routing in separate `.js` file (find it on a CDN)
+
+                Before
+
+                `angular.module("ModuleName", [])`
+
+                After
+                `angular.module("ModuleName", ['ngRoute'])`
+            </section>
+            <section>
+                <h2>Angular routing</h2>
+<pre>
+myModule.config(function($routeProvider) {
+    $routeProvider
+        .when('/home', {})
+</pre>
+<pre class="fragment">
+        .otherwise({});
+}
+</pre>
+                <p class="fragment">What to put in the objects?</p>
+            </section>
+            <section ng-non-bindable data-markdown>
+                ## Templating
+
+                Simply `HTML` with 'holes'
+
+                Can be either inline or in a separate `.html` file
+
+                ----
+                `{{variable}}`
+                `&lt;span ng-bind=&quot;variable&quot;&gt;&lt;/span&gt;`
+            </section>
+            <section ng-non-bindable>
+                <h2>Routing with templates</h2>
+
+<pre>.when('/home', {
+  template: '{{variable}}'
+}
+
+.when('/home', {
+  templateUrl: 'pages/home.html'
+}</pre>
+            </section>
+            <section ng-non-bindable>
+                <h2>Routing with controllers</h2>
+<pre>
+myModule.controller("MyController",
+    function() {...}
+);
+</pre>
+<pre>.when('/home', {
+  controller: 'MyController',
+  templateUrl: 'pages/home.html'
+}</pre>
+            </section>
+            <section data-markdown>
+                ## Angular routing example
+
+                [JS Bin example](http://jsbin.com/roxifizica/edit?html,js,output)
+            </section>
+            <section>
+                <h2>Single-page applications pros and cons</h2>
+                <div class="six columns fragment" data-markdown>
                     * Clients are getting faster
                     * Reduces network traffic
                     * Offline applications
                     * Easier and simpler code
                     * Hardware getting better!
                 </div>
-                <div class="six columns" data-markdown>
-                    * Big first HTML request!
+                <div class="six columns fragment" data-markdown>
+                    * Big first request!
                     * Poor client performance
                     * Compatibility (IE)
-                    * Hard to test
+                    * (Can be) hard to test
                 </div>
-
             </section>
         </section>
     </div>
